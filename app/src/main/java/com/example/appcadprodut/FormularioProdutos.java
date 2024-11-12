@@ -38,6 +38,12 @@ public class FormularioProdutos extends AppCompatActivity {
 
         if (editarProduto !=null){
             btn_Polimorf.setText("Modificar");
+
+            editText_NomeProduto.setText(editarProduto.getNomeProduto());
+            editText_DescricaoProduto.setText(editarProduto.getDescricao());
+            editText_Quantidade.setText(editarProduto.getQuantidade()+"");
+
+            produto.setId(editarProduto.getId());
         }
         else {
             btn_Polimorf.setText("Cadastrar");

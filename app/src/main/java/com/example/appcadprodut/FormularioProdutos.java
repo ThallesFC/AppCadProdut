@@ -28,7 +28,7 @@ public class FormularioProdutos extends AppCompatActivity {
         dbHelper = new ProdutosBd(FormularioProdutos.this);
 
         Intent intent = getIntent();
-        editarProduto = (Produtos) intent.getSerializableExtra("Produto-escolhido");
+        editarProduto = (Produtos) intent.getSerializableExtra("produto-escolhido");
 
         editText_NomeProduto = (EditText) findViewById(R.id.editText_NomeProduto);
         editText_DescricaoProduto = (EditText) findViewById(R.id.editText_DescricaoProduto);
@@ -36,35 +36,35 @@ public class FormularioProdutos extends AppCompatActivity {
 
         btn_Polimorf = (Button) findViewById(R.id.btn_Polimorf);
 
-        if (editarProduto !=null){
+        if (editarProduto != null) {
             btn_Polimorf.setText("Modificar");
 
             editText_NomeProduto.setText(editarProduto.getNomeProduto());
             editText_DescricaoProduto.setText(editarProduto.getDescricao());
-            editText_Quantidade.setText(editarProduto.getQuantidade()+"");
+            editText_Quantidade.setText(String.valueOf(editarProduto.getQuantidade()));
 
             produto.setId(editarProduto.getId());
-        }
-        else {
+        } else {
             btn_Polimorf.setText("Cadastrar");
         }
 
         btn_Polimorf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                produto.setNomeProduto(editText_NomeProduto.getText() .toString());
-                produto.setDescricao(editText_DescricaoProduto.getText() .toString());
-                produto.setQuantidade(Integer.parseInt(editText_Quantidade.getText() .toString()));
+                produto.setNomeProduto(editText_NomeProduto.getText().toString());
+                produto.setDescricao(editText_DescricaoProduto.getText().toString());
 
-                if (btn_Polimorf.getText() .toString() .equals("Cadastrar")){
+                String quantidadeText = editText_Quantidade.getText().toString();
+                int quantidade = quantidadeText.isEmpty() ? 0 : Integer.parseInt(quantidadeText);
+                produto.setQuantidade(quantidade);
+
+                if (btn_Polimorf.getText().toString().equals("Cadastrar")) {
                     dbHelper.salvarProduto(produto);
-                    dbHelper.close();
-                }
-                else {
+                } else {
                     dbHelper.alterarProduto(produto);
-                    dbHelper.close();
                 }
-
+                dbHelper.close();
+                finish();  // Finaliza a atividade
             }
         });
     }

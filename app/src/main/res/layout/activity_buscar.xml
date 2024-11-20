@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity_buscar">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="406dp"
+        android:layout_height="67dp"
+        android:text="@string/buscando"
+        android:textAlignment="center"
+        android:textColor="#ff6750a4"
+        android:textSize="34sp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="6dp"
+        tools:layout_editor_absoluteY="6dp" />
+
+    <EditText
+        android:id="@+id/editTextBusca"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="312dp"
+        android:ems="10"
+        android:hint="@string/insira_o_nome_da_carta"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColorHint="#8D6E63"
+        app:layout_constraintBottom_toTopOf="@+id/btn_Localizar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/btn_Localizar"
+        android:layout_width="412dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="44dp"
+        android:text="@string/localizar"
+        android:textAlignment="center"
+        android:textColor="#0B0B0B"
+        android:textSize="20sp"
+        app:backgroundTint="#B1ADAD"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-1dp" />
+
+    <ListView
+        android:id="@+id/ListViewResultado"
+        android:layout_width="406dp"
+        android:layout_height="197dp"
+        android:layout_marginTop="116dp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextBusca"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

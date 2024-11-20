@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Cadastro de Produtos</string>
+    <string name="app_name">Yugioh Collection</string>
     <string name="cadastro_de_produtos">Cadastro de Produtos</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -50,4 +50,14 @@
     <string name="button">Button</string>
     <string name="cadastrar">Cadastrar</string>
     <string name="modificar">Modificar</string>
+    <string name="minha_cole_o">Minha coleção</string>
+    <string name="buscar">Buscar</string>
+    <string name="lista">Lista</string>
+    <string name="insira_o_nome_da_carta">Insira o nome da carta</string>
+    <string name="localizar">Localizar</string>
+    <string name="nome_da_carta">Insira o nome da carta</string>
+    <string name="texto_da_carta">Texto da carta</string>
+    <string name="editar">Editar</string>
+    <string name="buscando">Buscando</string>
+    <string name="detalhes">Detalhes</string>
 </resources>

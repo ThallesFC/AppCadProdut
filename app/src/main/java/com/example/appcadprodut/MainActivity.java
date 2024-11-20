@@ -31,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btn_Buscar = findViewById(R.id.btn_Buscar);btn_Buscar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, BuscarActivity.class);
+                startActivity(intent);
+            }
+        });
+
         Button btn_Cadastrar = (Button) findViewById(R.id.btn_Cadastrar);
         btn_Cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
                 dbHelper.deletarProduto(produto);
                 dbHelper.close();
                 carregarProduto();
+
+                adapter.remove(produto);
+
+                adapter.notifyDataSetChanged();
                 return true;
             }
         });

@@ -4,9 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-
-import com.example.appcadprodut.Model.Produtos;
+import android.database.sqlite.SQLiteOpenHelper;import com.example.appcadprodut.Model.Produtos;
 
 import java.util.ArrayList;
 
@@ -29,7 +27,7 @@ public class ProdutosBd extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         String produto = "DROP TABLE IF EXISTS produtos";
         sqLiteDatabase.execSQL(produto);
-        onCreate(sqLiteDatabase); // Recriar a tabela
+        onCreate(sqLiteDatabase);
     }
 
     public void salvarProduto(Produtos produto) {
@@ -47,18 +45,17 @@ public class ProdutosBd extends SQLiteOpenHelper {
         values.put("descricao", produto.getDescricao());
         values.put("quantidade", produto.getQuantidade());
 
-        String[] args = {produto.getId().toString()};
+        String[] args = {String.valueOf(produto.getId())};
         getWritableDatabase().update("produtos", values, "id=?", args);
     }
 
-    public void deletarProduto(Produtos produto) {
-        String[] args = {produto.getId().toString()};
+    public void deletarProduto(Produtos produto) {String[] args = {String.valueOf(produto.getId())};
         getWritableDatabase().delete("produtos", "id=?", args);
     }
 
     public ArrayList<Produtos> getLista() {
         String[] columns = {"id", "nomeproduto", "descricao", "quantidade"};
-        Cursor cursor = getWritableDatabase().query("produtos", columns, null, null, null, null, null);
+        Cursor cursor = getReadableDatabase().query("produtos", columns, null, null, null, null, null);
         ArrayList<Produtos> produtos = new ArrayList<>();
 
         while (cursor.moveToNext()) {
@@ -70,7 +67,16 @@ public class ProdutosBd extends SQLiteOpenHelper {
 
             produtos.add(produto);
         }
-        cursor.close(); // Fechar o cursor após o uso
+        cursor.close();
         return produtos;
+    }
+
+    public Cursor getProdutoDetalhes(long produtoId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {"nomeproduto", "descricao", "quantidade"};
+        String selection = "id = ?";
+        String[] selectionArgs = {String.valueOf(produtoId)};
+
+        return db.query("produtos", columns, selection, selectionArgs, null, null, null);
     }
 }

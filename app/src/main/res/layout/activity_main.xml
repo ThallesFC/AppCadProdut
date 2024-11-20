@@ -19,7 +19,7 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="67dp"
-            android:text="@string/cadastro_de_produtos"
+            android:text="@string/minha_cole_o"
             android:textAlignment="center"
             android:textColor="#FF5722"
             android:textSize="34sp" />
@@ -27,7 +27,7 @@
         <ListView
             android:id="@+id/ListView_Produtos"
             android:layout_width="match_parent"
-            android:layout_height="591dp" />
+            android:layout_height="519dp" />
 
         <Button
             android:id="@+id/btn_Cadastrar"
@@ -36,6 +36,16 @@
             android:text="@string/cadastrar"
             android:textAlignment="center"
             android:textSize="20sp"
+            app:backgroundTint="#E2B03FC3"
             app:icon="@android:drawable/ic_menu_edit" />
+
+        <Button
+            android:id="@+id/btn_Buscar"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:text="@string/buscar"
+            android:textSize="20sp"
+            app:backgroundTint="#3F9B43"
+            app:icon="@android:drawable/ic_menu_search" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

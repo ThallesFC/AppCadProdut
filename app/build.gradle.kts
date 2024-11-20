@@ -7,7 +7,7 @@ android {
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.appcadprodut"
+        applicationId= "com.example.appcadprodut"
         minSdk = 19
         targetSdk = 34
         versionCode = 1
@@ -25,8 +25,7 @@ android {
             )
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
+    compileOptions {sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
     buildFeatures {
@@ -35,13 +34,30 @@ android {
 }
 
 dependencies {
-
-    implementation(libs.appcompat)
-    implementation(libs.material)
-    implementation(libs.activity)
-    implementation(libs.constraintlayout)
-    implementation(libs.navigation.fragment)
-    implementation(libs.navigation.ui)
+    configurations.all {
+        resolutionStrategy {
+            force("androidx.annotation:annotation:1.9.1")
+        }
+    }
+    implementation(libs.appcompat) {
+        exclude(group = "androidx.annotation", module = "annotation")
+    }
+    implementation(libs.material) {
+        exclude(group = "androidx.annotation", module = "annotation")
+    }
+    implementation(libs.activity) {
+        exclude(group = "androidx.annotation", module = "annotation")
+    }
+    implementation(libs.constraintlayout) {
+        exclude(group = "androidx.annotation", module = "annotation")
+    }
+    implementation(libs.navigation.fragment) {
+        exclude(group = "androidx.annotation", module = "annotation")
+    }
+    implementation(libs.navigation.ui) {
+        exclude(group = "androidx.annotation", module = "annotation")
+    }
+    implementation(libs.annotation.jvm) // Mantém a dependência libs.annotation.jvm
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

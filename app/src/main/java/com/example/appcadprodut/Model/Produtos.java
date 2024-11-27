@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 public class Produtos implements Serializable {
     private static final long serialVersionUID = 1L;
+    public int cor;
     private Long id;
     private String nomeProduto;
     private String descricao;

@@ -9,25 +9,27 @@
 
     <TextView
         android:id="@+id/textView3"
-        android:layout_width="413dp"
+        android:layout_width="351dp"
         android:layout_height="62dp"
         android:text="@string/detalhes"
         android:textAlignment="center"
         android:textColor="#F0C835"
         android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-4dp"
         tools:layout_editor_absoluteY="3dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecycleViewDetalhes"
-        android:layout_width="409dp"
-        android:layout_height="655dp"
+        android:layout_width="370dp"
+        android:layout_height="652dp"
         android:layout_marginTop="96dp"
         android:textAlignment="center"
         android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/textView3"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="4dp"
         tools:visibility="visible" />
 </androidx.constraintlayout.widget.ConstraintLayout>

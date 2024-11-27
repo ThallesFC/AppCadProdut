@@ -19,6 +19,8 @@
             android:id="@+id/textView"
             android:layout_width="match_parent"
             android:layout_height="67dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:text="@string/minha_cole_o"
             android:textAlignment="center"
             android:textColor="#FF5722"
@@ -27,12 +29,16 @@
         <ListView
             android:id="@+id/ListView_Produtos"
             android:layout_width="match_parent"
-            android:layout_height="519dp" />
+            android:layout_height="519dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp" />
 
         <Button
             android:id="@+id/btn_Cadastrar"
             android:layout_width="match_parent"
             android:layout_height="67dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:text="@string/cadastrar"
             android:textAlignment="center"
             android:textSize="20sp"
@@ -43,6 +49,8 @@
             android:id="@+id/btn_Buscar"
             android:layout_width="match_parent"
             android:layout_height="67dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
             android:text="@string/buscar"
             android:textSize="20sp"
             app:backgroundTint="#3F9B43"

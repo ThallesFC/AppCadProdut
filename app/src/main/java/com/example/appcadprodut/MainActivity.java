@@ -1,14 +1,17 @@
 package com.example.appcadprodut;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,12 +29,15 @@ public class MainActivity extends AppCompatActivity {
     Produtos produto;
     ArrayAdapter<Produtos> adapter;
 
+    private static final int REQUEST_CODE_FORMULARIO = 1; // Código de solicitação para FormularioProdutos
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btn_Buscar = findViewById(R.id.btn_Buscar);btn_Buscar.setOnClickListener(new View.OnClickListener() {
+        Button btn_Buscar = findViewById(R.id.btn_Buscar);
+        btn_Buscar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, BuscarActivity.class);
@@ -43,8 +49,8 @@ public class MainActivity extends AppCompatActivity {
         btn_Cadastrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FormularioProdutos.class);
-                startActivity(intent);
+                Intent intent = new Intent(MainActivity.this,FormularioProdutos.class);
+                startActivityForResult(intent, REQUEST_CODE_FORMULARIO); // Iniciar com startActivityForResult
             }
         });
 
@@ -57,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 Produtos produtoEscolhido = (Produtos) adapter.getItemAtPosition(position);
                 Intent i = new Intent(MainActivity.this, FormularioProdutos.class);
                 i.putExtra("produto-escolhido", produtoEscolhido);
-                startActivity(i);
+                startActivityForResult(i, REQUEST_CODE_FORMULARIO); // Iniciar com startActivityForResult
             }
         });
 
@@ -95,13 +101,37 @@ public class MainActivity extends AppCompatActivity {
         carregarProduto();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_FORMULARIO && resultCode == RESULT_OK) {
+            carregarProduto(); // Recarrega a lista para atualizar as cores
+        }
+    }
+
     public void carregarProduto() {
         dbHelper = new ProdutosBd(MainActivity.this);
         ListView_Produtos = dbHelper.getLista();
         dbHelper.close();
 
         if (ListView_Produtos != null && !ListView_Produtos.isEmpty()) {
-            adapter = new ArrayAdapter<>(MainActivity.this, android.R.layout.simple_list_item_1, ListView_Produtos);
+            adapter = new ArrayAdapter<Produtos>(MainActivity.this, android.R.layout.simple_list_item_1, ListView_Produtos) {
+                @Override
+                public View getView(int position, View convertView, ViewGroup parent) {
+                    View view = super.getView(position, convertView, parent);
+                    TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                    // Define a cor de fundo do item com base na cor do produto
+                    Produtos produto = getItem(position);
+                    view.setBackgroundColor(produto.cor);
+
+                    // Define a cor do texto para garantir a legibilidade
+                    textView.setTextColor(Color.BLACK); // Ou outra cor que contraste com o fundo
+
+                    return view;
+                }
+            };
             lista.setAdapter(adapter);
         } else {
             Toast.makeText(this, "Nenhum produto encontrado.", Toast.LENGTH_SHORT).show();

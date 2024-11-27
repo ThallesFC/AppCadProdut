@@ -9,15 +9,16 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="406dp"
-        android:layout_height="67dp"
+        android:layout_width="369dp"
+        android:layout_height="68dp"
         android:text="@string/buscando"
         android:textAlignment="center"
         android:textColor="#ff6750a4"
         android:textSize="34sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="6dp"
-        tools:layout_editor_absoluteY="6dp" />
+        tools:layout_editor_absoluteY="0dp" />
 
     <EditText
         android:id="@+id/editTextBusca"
@@ -37,8 +38,8 @@
 
     <Button
         android:id="@+id/btn_Localizar"
-        android:layout_width="412dp"
-        android:layout_height="73dp"
+        android:layout_width="370dp"
+        android:layout_height="65dp"
         android:layout_marginBottom="44dp"
         android:text="@string/localizar"
         android:textAlignment="center"
@@ -46,8 +47,9 @@
         android:textSize="20sp"
         app:backgroundTint="#B1ADAD"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <ListView
         android:id="@+id/ListViewResultado"

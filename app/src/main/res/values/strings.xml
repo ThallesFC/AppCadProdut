@@ -60,4 +60,7 @@
     <string name="editar">Editar</string>
     <string name="buscando">Buscando</string>
     <string name="detalhes">Detalhes</string>
+    <string name="monster">Monster</string>
+    <string name="spell">Spell</string>
+    <string name="trap">Trap</string>
 </resources>

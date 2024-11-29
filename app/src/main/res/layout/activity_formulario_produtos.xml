@@ -27,8 +27,8 @@
         android:layout_width="412dp"
         android:layout_height="629dp"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="101dp">
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="102dp">
 
         <EditText
             android:id="@+id/editText_NomeProduto"
@@ -85,8 +85,9 @@
             android:layout_marginBottom="317dp"
             android:text="@string/modificar"
             android:textAlignment="center"
+            android:textColor="#000000"
             android:textSize="20sp"
-            app:backgroundTint="#141313"
+            app:backgroundTint="#FFEB3B"
             app:icon="@android:drawable/ic_menu_save"
             app:iconPadding="8dp"
             app:iconSize="18dp"
@@ -104,10 +105,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="@string/monster"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btn_Polimorf"
-            app:layout_constraintVertical_bias="0.208"
+            app:layout_constraintVertical_bias="0.672"
             app:layout_marginBaseline="15dp"
             tools:layout_editor_absoluteX="16dp" />
 
@@ -116,24 +118,26 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:text="@string/spell"
+            android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.264"
+            app:layout_constraintHorizontal_bias="0.255"
             app:layout_constraintStart_toEndOf="@+id/cbMonster"
             app:layout_constraintTop_toBottomOf="@+id/btn_Polimorf"
-            app:layout_constraintVertical_bias="0.243" />
+            app:layout_constraintVertical_bias="0.651" />
 
         <CheckBox
             android:id="@+id/cbTrap"
             android:layout_width="100dp"
             android:layout_height="50dp"
-            android:layout_marginStart="36dp"
+            android:layout_marginStart="28dp"
             android:text="@string/trap"
+            android:textColor="#000000"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/cbSpell"
             app:layout_constraintTop_toBottomOf="@+id/btn_Polimorf"
-            app:layout_constraintVertical_bias="0.243" />
+            app:layout_constraintVertical_bias="0.651" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

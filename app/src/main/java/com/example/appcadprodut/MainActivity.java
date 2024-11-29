@@ -3,6 +3,7 @@ package com.example.appcadprodut;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,50 +32,59 @@ public class MainActivity extends AppCompatActivity {
     Produtos produto;
     ArrayAdapter<Produtos> adapter;
 
-    private static final int REQUEST_CODE_FORMULARIO = 1; // Código de solicitação para FormularioProdutos
+    // ActivityResultLauncher para iniciar FormularioProdutos
+    ActivityResultLauncher<Intent> editProdutoLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Inicializa o ActivityResultLauncher
+        editProdutoLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        Intent data = result.getData();
+                        if (data != null) {
+                            int position = data.getIntExtra("position", -1);
+                            if (position != -1) {
+                                Produtos produto = adapter.getItem(position);
+                                produto.cor = data.getIntExtra("corSelecionada", Color.BLACK);
+                                adapter.notifyDataSetChanged();
+                            }
+                        }
+                    }
+                });
+
         Button btn_Buscar = findViewById(R.id.btn_Buscar);
-        btn_Buscar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, BuscarActivity.class);
-                startActivity(intent);
-            }
+        btn_Buscar.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, BuscarActivity.class);
+            startActivity(intent);
         });
 
-        Button btn_Cadastrar = (Button) findViewById(R.id.btn_Cadastrar);
-        btn_Cadastrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this,FormularioProdutos.class);
-                startActivityForResult(intent, REQUEST_CODE_FORMULARIO); // Iniciar com startActivityForResult
-            }
+        Button btn_Cadastrar = findViewById(R.id.btn_Cadastrar);
+        btn_Cadastrar.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, FormularioProdutos.class);
+            // Inicia FormularioProdutos usando o launcher
+            editProdutoLauncher.launch(intent);
         });
 
-        lista = (ListView) findViewById(R.id.ListView_Produtos);
+        lista = findViewById(R.id.ListView_Produtos);
         registerForContextMenu(lista);
 
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View view, int position, long id) {
-                Produtos produtoEscolhido = (Produtos) adapter.getItemAtPosition(position);
-                Intent i = new Intent(MainActivity.this, FormularioProdutos.class);
-                i.putExtra("produto-escolhido", produtoEscolhido);
-                startActivityForResult(i, REQUEST_CODE_FORMULARIO); // Iniciar com startActivityForResult
-            }
+        lista.setOnItemClickListener((adapterView, view, position, id) -> {
+            Produtos produtoEscolhido = (Produtos) adapterView.getItemAtPosition(position);
+            Intent i = new Intent(MainActivity.this, FormularioProdutos.class);
+            i.putExtra("produto-escolhido", produtoEscolhido);
+            i.putExtra("position", position);
+            // Inicia FormularioProdutos usando o launcher
+            editProdutoLauncher.launch(i);
         });
 
-        lista.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapter, View view, int i, long l) {
-                produto = (Produtos) adapter.getItemAtPosition(i);
-                return false;
-            }
+        lista.setOnItemLongClickListener((adapterView, view, i, l) -> {
+            produto = (Produtos) adapterView.getItemAtPosition(i);
+            return false;
         });
     }
 
@@ -88,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 carregarProduto();
 
                 adapter.remove(produto);
-
                 adapter.notifyDataSetChanged();
                 return true;
             }
@@ -99,15 +110,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         carregarProduto();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == REQUEST_CODE_FORMULARIO && resultCode == RESULT_OK) {
-            carregarProduto(); // Recarrega a lista para atualizar as cores
-        }
     }
 
     public void carregarProduto() {

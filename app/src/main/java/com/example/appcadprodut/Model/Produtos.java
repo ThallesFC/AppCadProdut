@@ -9,6 +9,7 @@ public class Produtos implements Serializable {
     private String nomeProduto;
     private String descricao;
     private int quantidade;
+    private String caminhoImagem;
 
     @Override
     public String toString(){
@@ -45,5 +46,13 @@ public class Produtos implements Serializable {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    public String getCaminhoImagem() {
+        return caminhoImagem;
+    }
+
+    public void setCaminhoImagem(String caminhoImagem) {
+        this.caminhoImagem = caminhoImagem;
     }
 }
